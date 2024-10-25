@@ -1,9 +1,11 @@
 import readline from 'readline';
 
 import strings from './pairtest/utils/strings.json' with { type: 'json' };
-import TicketTypeRequest from './pairtest/lib/TicketTypeRequest.js';
 import { TICKET_TYPES } from './pairtest/config/app.config.js';
-import { generateAccountId } from './pairtest/utils/helpers.js';
+import {
+  createTicketTypeRequestIfValid,
+  generateAccountId,
+} from './pairtest/utils/helpers.js';
 import TicketService from './pairtest/TicketService.js';
 import TicketValidationService from './pairtest/TicketValidationService.js';
 
@@ -22,14 +24,12 @@ let infantTicketsRequest;
 const requestNoOfAdultTickets = () => {
   return new Promise((resolve, _) => {
     rl.question(strings.request_number_of_adult_tickets, (input) => {
-      const parsedInput = parseInt(input);
-      if (!Number.isInteger(parsedInput)) {
+      adultTicketsRequest = createTicketTypeRequestIfValid(
+        TICKET_TYPES.ADULT,
+        input
+      );
+      if (adultTicketsRequest == null) {
         console.log(strings.error_request_valid_number_of_tickets);
-      } else {
-        adultTicketsRequest = new TicketTypeRequest(
-          TICKET_TYPES.ADULT,
-          parsedInput
-        );
       }
       resolve();
     });
@@ -39,14 +39,12 @@ const requestNoOfAdultTickets = () => {
 const requestNoOfChildTickets = () => {
   return new Promise((resolve, _) => {
     rl.question(strings.request_number_of_child_tickets, (input) => {
-      const parsedInput = parseInt(input);
-      if (!Number.isInteger(parsedInput)) {
+      childTicketsRequest = createTicketTypeRequestIfValid(
+        TICKET_TYPES.CHILD,
+        input
+      );
+      if (childTicketsRequest == null) {
         console.log(strings.error_request_valid_number_of_tickets);
-      } else {
-        childTicketsRequest = new TicketTypeRequest(
-          TICKET_TYPES.CHILD,
-          parsedInput
-        );
       }
       resolve();
     });
@@ -56,14 +54,12 @@ const requestNoOfChildTickets = () => {
 const requestNoOfInfantTickets = () => {
   return new Promise((resolve, _) => {
     rl.question(strings.request_number_of_infant_tickets, (input) => {
-      const parsedInput = parseInt(input);
-      if (!Number.isInteger(parsedInput)) {
+      infantTicketsRequest = createTicketTypeRequestIfValid(
+        TICKET_TYPES.INFANT,
+        input
+      );
+      if (infantTicketsRequest == null) {
         console.log(strings.error_request_valid_number_of_tickets);
-      } else {
-        infantTicketsRequest = new TicketTypeRequest(
-          TICKET_TYPES.INFANT,
-          parsedInput
-        );
       }
       resolve();
     });
@@ -84,12 +80,12 @@ const main = async () => {
 
   const ticketValidationService = new TicketValidationService();
   const ticketService = new TicketService(ticketValidationService);
-  ticketService.purchaseTickets(
-    accountId,
-    adultTicketsRequest,
-    childTicketsRequest,
-    infantTicketsRequest
-  );
+    ticketService.purchaseTickets(
+      accountId,
+      adultTicketsRequest,
+      childTicketsRequest,
+      infantTicketsRequest
+    );
 };
 
 main();
