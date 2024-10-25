@@ -8,7 +8,7 @@
   "type": "module",
   "main": "./src/main.js",
   "scripts": {
-    "start": "babel-node ./src/main.js",
+    "start": "babel-node ./src/main.js --disable-warning=ExperimentalWarning",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
