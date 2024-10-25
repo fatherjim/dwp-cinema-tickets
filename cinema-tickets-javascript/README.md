@@ -34,7 +34,7 @@ Follow the steps below to get the project up and running:
 
 ## Usage
 
-Ensure the machine is running NodeJS 20 or later.
+Ensure the machine is running NodeJS 20 or later, or simply run ```nvm use``` to use NodeJS 20.
 
 Change directory to cinema-tickets-javascript.
 
