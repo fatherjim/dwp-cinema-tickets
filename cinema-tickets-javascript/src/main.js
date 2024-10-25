@@ -4,6 +4,7 @@ import strings from './pairtest/utils/strings.json' with { type: 'json' };
 import TicketTypeRequest from './pairtest/lib/TicketTypeRequest.js';
 import { TICKET_TYPES } from './pairtest/config/app.config.js';
 import { generateAccountId } from './pairtest/utils/helpers.js';
+import TicketService from './pairtest/TicketService.js';
 
 const accountId = generateAccountId();
 console.log(strings.welcome.replace('{accountId}', accountId));
@@ -80,14 +81,12 @@ const main = async () => {
   } while (infantTicketsRequest == null);
   rl.close();
 
-  console.log(
-    `${adultTicketsRequest.getTicketType()}: ${adultTicketsRequest.getNoOfTickets()}`
-  );
-  console.log(
-    `${childTicketsRequest.getTicketType()}: ${childTicketsRequest.getNoOfTickets()}`
-  );
-  console.log(
-    `${infantTicketsRequest.getTicketType()}: ${infantTicketsRequest.getNoOfTickets()}`
+  const ticketService = new TicketService();
+  ticketService.purchaseTickets(
+    accountId,
+    adultTicketsRequest,
+    childTicketsRequest,
+    infantTicketsRequest
   );
 };
 

@@ -7,6 +7,13 @@ export default class TicketService {
    */
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
+    console.log(
+      `Account #${accountId} would like to purchase the following tickets:`
+    );
+    ticketTypeRequests.forEach((request) => {
+      console.log(`${request.getTicketType()}: ${request.getNoOfTickets()}`);
+    });
+
     // throws InvalidPurchaseException
   }
 }
