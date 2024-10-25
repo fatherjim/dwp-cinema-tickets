@@ -1,6 +1,8 @@
 import readline from 'readline';
 
 import strings from './pairtest/utils/strings.json' with { type: 'json' };
+import TicketTypeRequest from './pairtest/lib/TicketTypeRequest.js';
+import { TICKET_TYPES } from './pairtest/config/app.config.js';
 import { generateAccountId } from './pairtest/utils/helpers.js';
 
 const accountId = generateAccountId();
@@ -11,44 +13,82 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-let adultTicketsNo;
-let childTicketsNo;
-let infantTicketsNo;
+let adultTicketsRequest;
+let childTicketsRequest;
+let infantTicketsRequest;
 
-const adultTicketsQuestion = () => {
+const requestNoOfAdultTickets = () => {
   return new Promise((resolve, _) => {
-    rl.question(strings.request_number_of_adult_tickets, (answer) => {
-      adultTicketsNo = answer;
+    rl.question(strings.request_number_of_adult_tickets, (input) => {
+      const parsedInput = parseInt(input);
+      if (!Number.isInteger(parsedInput)) {
+        console.log(strings.error_request_valid_number_of_tickets);
+      } else {
+        adultTicketsRequest = new TicketTypeRequest(
+          TICKET_TYPES.ADULT,
+          parsedInput
+        );
+      }
       resolve();
     });
   });
 };
-const childTicketsQuestion = () => {
+
+const requestNoOfChildTickets = () => {
   return new Promise((resolve, _) => {
-    rl.question(strings.request_number_of_child_tickets, (answer) => {
-      childTicketsNo = answer;
+    rl.question(strings.request_number_of_child_tickets, (input) => {
+      const parsedInput = parseInt(input);
+      if (!Number.isInteger(parsedInput)) {
+        console.log(strings.error_request_valid_number_of_tickets);
+      } else {
+        childTicketsRequest = new TicketTypeRequest(
+          TICKET_TYPES.CHILD,
+          parsedInput
+        );
+      }
       resolve();
     });
   });
 };
-const infantTicketsQuestion = () => {
+
+const requestNoOfInfantTickets = () => {
   return new Promise((resolve, _) => {
-    rl.question(strings.request_number_of_infant_tickets, (answer) => {
-      infantTicketsNo = answer;
+    rl.question(strings.request_number_of_infant_tickets, (input) => {
+      const parsedInput = parseInt(input);
+      if (!Number.isInteger(parsedInput)) {
+        console.log(strings.error_request_valid_number_of_tickets);
+      } else {
+        infantTicketsRequest = new TicketTypeRequest(
+          TICKET_TYPES.INFANT,
+          parsedInput
+        );
+      }
       resolve();
     });
   });
 };
 
 const main = async () => {
-  await adultTicketsQuestion();
-  await childTicketsQuestion();
-  await infantTicketsQuestion();
+  do {
+    await requestNoOfAdultTickets();
+  } while (adultTicketsRequest == null);
+  do {
+    await requestNoOfChildTickets();
+  } while (childTicketsRequest == null);
+  do {
+    await requestNoOfInfantTickets();
+  } while (infantTicketsRequest == null);
   rl.close();
 
-  console.log(`Adult tickets: ${adultTicketsNo}`);
-  console.log(`Child tickets: ${childTicketsNo}`);
-  console.log(`Infant tickets: ${infantTicketsNo}`);
+  console.log(
+    `${adultTicketsRequest.getTicketType()}: ${adultTicketsRequest.getNoOfTickets()}`
+  );
+  console.log(
+    `${childTicketsRequest.getTicketType()}: ${childTicketsRequest.getNoOfTickets()}`
+  );
+  console.log(
+    `${infantTicketsRequest.getTicketType()}: ${infantTicketsRequest.getNoOfTickets()}`
+  );
 };
 
 main();
