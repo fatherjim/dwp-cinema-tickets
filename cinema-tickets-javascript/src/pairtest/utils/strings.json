@@ -1,3 +1,6 @@
 {
-  "welcome": "Welcome to the DWP ticket service!"
+  "welcome": "Welcome to the DWP ticket service!",
+  "request_number_of_adult_tickets": "How many adult tickets would you like to purchase? ",
+  "request_number_of_child_tickets": "How many child tickets would you like to purchase? ",
+  "request_number_of_infant_tickets": "How many infant tickets would you like to purchase? "
 }
