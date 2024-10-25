@@ -1,8 +1,10 @@
 import readline from 'readline';
 
 import strings from './pairtest/utils/strings.json' with { type: 'json' };
+import { generateAccountId } from './pairtest/utils/helpers.js';
 
-console.log(strings.welcome);
+const accountId = generateAccountId();
+console.log(strings.welcome.replace('{accountId}', accountId));
 
 const rl = readline.createInterface({
   input: process.stdin,
