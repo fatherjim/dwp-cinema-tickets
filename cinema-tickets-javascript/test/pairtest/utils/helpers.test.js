@@ -13,19 +13,18 @@ function getRandomTicketType() {
 
 describe('Testing helper function createTicketTypeRequestIfValid', () => {
   const ticketType = getRandomTicketType();
-  console.log(`Ticket type: ${ticketType}`);
 
-  test('User input is a non-integer', () => {
+  test('user input is a non-integer', () => {
     expect(createTicketTypeRequestIfValid(ticketType, 'non-integer')).toBe(
       null
     );
   });
 
-  test('User input is an integer as string, but less than 0', () => {
+  test('user input is an integer as string, but less than 0', () => {
     expect(createTicketTypeRequestIfValid(ticketType, '-1')).toBe(null);
   });
 
-  test('User input is an integer as string, and >=0', () => {
+  test('user input is an integer as string, and >=0', () => {
     const userInput = '10';
     const parsedUserInput = parseInt(userInput);
     const expectedTicketTypeRequest = new TicketTypeRequest(
