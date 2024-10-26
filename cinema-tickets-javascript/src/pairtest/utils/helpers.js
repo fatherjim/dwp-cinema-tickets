@@ -10,7 +10,7 @@ function generateAccountId() {
 
 function createTicketTypeRequestIfValid(ticketType, userInput) {
   const parsedInput = parseInt(userInput);
-  if (Number.isInteger(parsedInput)) {
+  if (Number.isInteger(parsedInput) && parsedInput >= 0) {
     return new TicketTypeRequest(ticketType, parsedInput);
   } else {
     return null;

@@ -21,7 +21,11 @@ describe('Testing helper function createTicketTypeRequestIfValid', () => {
     );
   });
 
-  test('User input is an integer as string', () => {
+  test('User input is an integer as string, but less than 0', () => {
+    expect(createTicketTypeRequestIfValid(ticketType, '-1')).toBe(null);
+  });
+
+  test('User input is an integer as string, and >=0', () => {
     const userInput = '10';
     const parsedUserInput = parseInt(userInput);
     const expectedTicketTypeRequest = new TicketTypeRequest(
