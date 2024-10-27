@@ -10,7 +10,7 @@ import TicketService from './pairtest/TicketService.js';
 import TicketValidationService from './pairtest/TicketValidationService.js';
 
 const accountId = generateAccountId();
-console.log(strings.welcome.replace('{accountId}', accountId));
+console.log(strings.welcome_message.replace('{accountId}', accountId));
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -80,12 +80,19 @@ const main = async () => {
 
   const ticketValidationService = new TicketValidationService();
   const ticketService = new TicketService(ticketValidationService);
+
+  try {
     ticketService.purchaseTickets(
       accountId,
       adultTicketsRequest,
       childTicketsRequest,
       infantTicketsRequest
     );
+  } catch (error) {
+    console.log(strings.error_purchase.replace('{errorMsg}', error.message));
+  }
+
+  console.log(strings.exit_message);
 };
 
 main();

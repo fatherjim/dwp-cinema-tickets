@@ -12,8 +12,12 @@ export default class TicketService {
   }
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
-    this.ticketValidationService.validateTicketRequests(...ticketTypeRequests);
-
-    // throws InvalidPurchaseException
+    try {
+      this.ticketValidationService.validateTicketRequests(
+        ...ticketTypeRequests
+      );
+    } catch (errorMsg) {
+      throw new InvalidPurchaseException(errorMsg);
+    }
   }
 }
