@@ -30,6 +30,16 @@ export default class TicketService {
     );
   }
 
+  #getTotalNumberOfSeatsToReserve(
+    adultTicketRequest,
+    childTicketRequest,
+    infantTicketRequest
+  ) {
+    return (
+      adultTicketRequest.getNoOfTickets() + childTicketRequest.getNoOfTickets()
+    );
+  }
+
   purchaseTickets(accountId, ...ticketTypeRequests) {
     // Separate ticket requests by type.
     // TODO - Support multiple ticket requests of same type by
@@ -64,6 +74,17 @@ export default class TicketService {
       strings.ticket_payment_successful.replace('{totalCost}', totalTicketsCost)
     );
 
-    // TODO - Seat calculations
+    const totalSeatsToReserve = this.#getTotalNumberOfSeatsToReserve(
+      adultTicketsRequest,
+      childTicketsRequest,
+      infantTicketsRequest
+    );
+    this.seatReservationService.reserveSeat(accountId, totalSeatsToReserve);
+    console.log(
+      strings.seat_reservation_successful.replace(
+        '{totalNoOfSeats}',
+        totalSeatsToReserve
+      )
+    );
   }
 }
