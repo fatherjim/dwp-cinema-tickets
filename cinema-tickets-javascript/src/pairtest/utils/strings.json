@@ -5,6 +5,8 @@
   "request_number_of_infant_tickets": "How many infant tickets would you like to purchase? ",
   "exit_message": "Exiting service...",
   "error_request_valid_number_of_tickets": "Please enter a valid number of tickets!",
+  "error_min_number_of_tickets": "The total number of tickets must be positive.",
+  "error_max_number_of_tickets": "You have chosen {currentTicketNumber} tickets but you cannot purchase more than {maxTicketNumber} tickets.",
   "ticket_validation_success": "Ticket requests have been validated!",
   "error_purchase": "Cannot proceed with the purchase due to the following error:\n{errorMsg}"
 }
