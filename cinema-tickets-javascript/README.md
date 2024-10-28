@@ -5,6 +5,7 @@
 DWP Ticket Service is my solution to the coding exercise for Senior JavaScript/Node.JS Engineer - 368194.
 
 Project status: <span style="color:green">Active</span>
+[![codecov](https://codecov.io/github/fatherjim/dwp-cinema-tickets/graph/badge.svg?token=B8MPM2GD2C)](https://codecov.io/github/fatherjim/dwp-cinema-tickets)
 
 ## Table of contents
 
