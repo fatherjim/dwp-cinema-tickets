@@ -1,4 +1,3 @@
-import TicketTypeRequest from './lib/TicketTypeRequest.js';
 import InvalidPurchaseException from './lib/InvalidPurchaseException.js';
 
 import { TICKET_PRICES, TICKET_TYPES } from './config/app.config.js';
@@ -33,7 +32,7 @@ export default class TicketService {
   #getTotalNumberOfSeatsToReserve(
     adultTicketRequest,
     childTicketRequest,
-    infantTicketRequest
+    _infantTicketRequest
   ) {
     return (
       adultTicketRequest.getNoOfTickets() + childTicketRequest.getNoOfTickets()

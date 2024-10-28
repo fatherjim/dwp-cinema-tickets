@@ -26,7 +26,7 @@ export default class TicketValidationService {
 
   #validateAdultCompanion(
     adultTicketsRequest,
-    childTicketRequest,
+    _childTicketRequest,
     infantTicketRequest
   ) {
     if (adultTicketsRequest.getNoOfTickets() <= 0) {
