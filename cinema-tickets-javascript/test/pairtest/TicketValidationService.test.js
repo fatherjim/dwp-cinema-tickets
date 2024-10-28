@@ -92,13 +92,33 @@ describe('Testing TicketValidationService', () => {
     }).toThrow(strings.error_adult_carry_infant);
   });
 
+  test('number of adult tickets is much less than the number of children to watch', () => {
+    jest
+      .spyOn(adultTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+    jest
+      .spyOn(childTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 5);
+    jest
+      .spyOn(infantTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+
+    expect(() => {
+      ticketValidationService.validateTicketRequests(
+        adultTicketRequest,
+        childTicketRequest,
+        infantTicketRequest
+      );
+    }).toThrow(strings.error_adult_watch_children);
+  });
+
   test('that all ticket requests have been validated', () => {
     jest
       .spyOn(adultTicketRequest, 'getNoOfTickets')
       .mockImplementation(() => 2);
     jest
       .spyOn(childTicketRequest, 'getNoOfTickets')
-      .mockImplementation(() => 2);
+      .mockImplementation(() => 4);
     jest
       .spyOn(infantTicketRequest, 'getNoOfTickets')
       .mockImplementation(() => 2);

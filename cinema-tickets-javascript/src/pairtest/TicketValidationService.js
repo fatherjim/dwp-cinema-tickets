@@ -1,4 +1,7 @@
-import { MAX_NUMBER_OF_TICKETS_PER_REQUEST } from './config/app.config.js';
+import {
+  MAX_NUMBER_OF_CHILDREN_PER_ADULT,
+  MAX_NUMBER_OF_TICKETS_PER_REQUEST,
+} from './config/app.config.js';
 import strings from './utils/strings.json' with { type: 'json' };
 
 export default class TicketValidationService {
@@ -26,7 +29,7 @@ export default class TicketValidationService {
 
   #validateAdultCompanion(
     adultTicketsRequest,
-    _childTicketRequest,
+    childTicketRequest,
     infantTicketRequest
   ) {
     if (adultTicketsRequest.getNoOfTickets() <= 0) {
@@ -38,6 +41,13 @@ export default class TicketValidationService {
       infantTicketRequest.getNoOfTickets()
     ) {
       throw strings.error_adult_carry_infant;
+    }
+
+    if (
+      adultTicketsRequest.getNoOfTickets() * MAX_NUMBER_OF_CHILDREN_PER_ADULT <
+      childTicketRequest.getNoOfTickets()
+    ) {
+      throw strings.error_adult_watch_children;
     }
   }
 

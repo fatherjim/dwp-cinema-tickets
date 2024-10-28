@@ -9,6 +9,7 @@
   "error_max_number_of_tickets": "You have chosen {currentTicketNumber} tickets but you cannot purchase more than {maxTicketNumber} tickets.",
   "error_require_adult_companion": "At least one adult ticket must be purchased.",
   "error_adult_carry_infant": "An adult can have at most one infant on their lap.",
+  "error_adult_watch_children": "There are not enough adults to watch over the children.",
   "tickets_validation_success": "Ticket requests have been validated!",
   "ticket_payment_successful": "You have paid a total of {totalCost} for the tickets!",
   "seat_reservation_successful": "You have reserved a total of {totalNoOfSeats} seats!",
