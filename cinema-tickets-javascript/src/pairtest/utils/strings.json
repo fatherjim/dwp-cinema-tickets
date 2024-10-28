@@ -10,5 +10,6 @@
   "error_require_adult_companion": "No adult ticket has been purchased.",
   "error_adult_carry_infant": "An adult can have at most one infant on their lap.",
   "tickets_validation_success": "Ticket requests have been validated!",
+  "ticket_payment_successful": "The total cost of {totalCost} has been paid!",
   "error_purchase": "Cannot proceed with the purchase due to the following error:\n{errorMsg}"
 }

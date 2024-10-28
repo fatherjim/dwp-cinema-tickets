@@ -1,7 +1,8 @@
 import TicketTypeRequest from './lib/TicketTypeRequest.js';
 import InvalidPurchaseException from './lib/InvalidPurchaseException.js';
 
-import { TICKET_TYPES } from './config/app.config.js';
+import { TICKET_PRICES, TICKET_TYPES } from './config/app.config.js';
+import strings from './utils/strings.json' with { type: 'json' };
 
 export default class TicketService {
   /**
@@ -13,6 +14,14 @@ export default class TicketService {
   constructor(ticketValidationService, ticketPaymentService) {
     this.ticketValidationService = ticketValidationService;
     this.ticketPaymentService = ticketPaymentService;
+  }
+
+  #getTicketsCost(adultTicketRequest, childTicketRequest, infantTicketRequest) {
+    return (
+      adultTicketRequest.getNoOfTickets() * TICKET_PRICES.ADULT +
+      childTicketRequest.getNoOfTickets() * TICKET_PRICES.CHILD +
+      infantTicketRequest.getNoOfTickets() * TICKET_PRICES.INFANT
+    );
   }
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
@@ -39,8 +48,16 @@ export default class TicketService {
       throw new InvalidPurchaseException(errorMsg);
     }
 
-    // TODO - Cost calculations
+    const totalTicketsCost = this.#getTicketsCost(
+      adultTicketsRequest,
+      childTicketsRequest,
+      infantTicketsRequest
+    );
+    this.ticketPaymentService.makePayment(accountId, totalTicketsCost);
+    console.log(
+      strings.ticket_payment_successful.replace('{totalCost}', totalTicketsCost)
+    );
+
     // TODO - Seat calculations
-    // TODO - Call relevant services
   }
 }
