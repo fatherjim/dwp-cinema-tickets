@@ -58,9 +58,63 @@ describe('Testing TicketValidationService', () => {
     }).toThrow(expectedErrorMsg);
   });
 
-  test('there is at least one adult ticket purchased', () => {});
+  test('there is at least one adult ticket purchased', () => {
+    jest
+      .spyOn(childTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 5);
+    jest
+      .spyOn(infantTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 1);
 
-  test('number of adult tickets is equal or more than number of infant tickets', () => {});
+    expect(() => {
+      ticketValidationService.validateTicketRequests(
+        adultTicketRequest,
+        childTicketRequest,
+        infantTicketRequest
+      );
+    }).toThrow(strings.error_require_adult_companion);
+  });
+
+  test('number of adult tickets is less than number of infant tickets', () => {
+    jest
+      .spyOn(adultTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 1);
+    jest
+      .spyOn(infantTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+
+    expect(() => {
+      ticketValidationService.validateTicketRequests(
+        adultTicketRequest,
+        childTicketRequest,
+        infantTicketRequest
+      );
+    }).toThrow(strings.error_adult_carry_infant);
+  });
+
+  test('that all ticket requests have been validated', () => {
+    jest
+      .spyOn(adultTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+    jest
+      .spyOn(childTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+    jest
+      .spyOn(infantTicketRequest, 'getNoOfTickets')
+      .mockImplementation(() => 2);
+
+    const logSpy = jest.spyOn(global.console, 'log');
+
+    ticketValidationService.validateTicketRequests(
+      adultTicketRequest,
+      childTicketRequest,
+      infantTicketRequest
+    );
+
+    expect(logSpy).toHaveBeenCalledWith(strings.tickets_validation_success);
+
+    logSpy.mockRestore();
+  });
 
   afterEach(() => {
     jest.restoreAllMocks();

@@ -24,6 +24,23 @@ export default class TicketValidationService {
     }
   }
 
+  #validateAdultCompanion(
+    adultTicketsRequest,
+    childTicketRequest,
+    infantTicketRequest
+  ) {
+    if (adultTicketsRequest.getNoOfTickets() <= 0) {
+      throw strings.error_require_adult_companion;
+    }
+
+    if (
+      adultTicketsRequest.getNoOfTickets() <
+      infantTicketRequest.getNoOfTickets()
+    ) {
+      throw strings.error_adult_carry_infant;
+    }
+  }
+
   validateTicketRequests(
     adultTicketsRequest,
     childTicketsRequest,
@@ -35,6 +52,12 @@ export default class TicketValidationService {
       infantTicketsRequest
     );
 
-    console.log(strings.ticket_validation_success);
+    this.#validateAdultCompanion(
+      adultTicketsRequest,
+      childTicketsRequest,
+      infantTicketsRequest
+    );
+
+    console.log(strings.tickets_validation_success);
   }
 }
