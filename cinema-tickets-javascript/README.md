@@ -30,7 +30,8 @@ Follow the steps below to get the project up and running:
     ```sh
     git clone https://github.com/fatherjim/dwp-cinema-tickets.git
     ```
-2. Install NPM packages
+2. Change directory to cinema-tickets-javascript
+3. Install NPM packages
     ```sh
     npm install
     ```
