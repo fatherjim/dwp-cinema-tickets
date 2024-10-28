@@ -8,6 +8,7 @@ import {
 } from './pairtest/utils/helpers.js';
 import TicketService from './pairtest/TicketService.js';
 import TicketValidationService from './pairtest/TicketValidationService.js';
+import TicketPaymentService from './thirdparty/paymentgateway/TicketPaymentService.js';
 
 const accountId = generateAccountId();
 console.log(strings.welcome_message.replace('{accountId}', accountId));
@@ -79,7 +80,11 @@ const main = async () => {
   rl.close();
 
   const ticketValidationService = new TicketValidationService();
-  const ticketService = new TicketService(ticketValidationService);
+  const ticketPaymentService = new TicketPaymentService();
+  const ticketService = new TicketService(
+    ticketValidationService,
+    ticketPaymentService
+  );
 
   try {
     ticketService.purchaseTickets(

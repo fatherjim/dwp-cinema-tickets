@@ -8,9 +8,11 @@ export default class TicketService {
    * Should only have private methods other than the one below.
    */
   ticketValidationService;
+  ticketPaymentService;
 
-  constructor(ticketValidationService) {
+  constructor(ticketValidationService, ticketPaymentService) {
     this.ticketValidationService = ticketValidationService;
+    this.ticketPaymentService = ticketPaymentService;
   }
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
