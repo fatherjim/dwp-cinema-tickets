@@ -10,10 +10,16 @@ export default class TicketService {
    */
   ticketValidationService;
   ticketPaymentService;
+  seatReservationService;
 
-  constructor(ticketValidationService, ticketPaymentService) {
+  constructor(
+    ticketValidationService,
+    ticketPaymentService,
+    seatReservationService
+  ) {
     this.ticketValidationService = ticketValidationService;
     this.ticketPaymentService = ticketPaymentService;
+    this.seatReservationService = seatReservationService;
   }
 
   #getTicketsCost(adultTicketRequest, childTicketRequest, infantTicketRequest) {

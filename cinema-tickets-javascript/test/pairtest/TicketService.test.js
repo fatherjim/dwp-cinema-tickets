@@ -79,4 +79,8 @@ describe('Testing TicketService', () => {
 
     logSpy.mockClear();
   });
+
+  test('failed seat allocation due to erroneous account id', () => {});
+
+  test('successful seat reservation', () => {});
 });

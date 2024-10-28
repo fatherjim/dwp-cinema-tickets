@@ -9,6 +9,7 @@ import {
 import TicketService from './pairtest/TicketService.js';
 import TicketValidationService from './pairtest/TicketValidationService.js';
 import TicketPaymentService from './thirdparty/paymentgateway/TicketPaymentService.js';
+import SeatReservationService from './thirdparty/seatbooking/SeatReservationService.js';
 
 const accountId = generateAccountId();
 console.log(strings.welcome_message.replace('{accountId}', accountId));
@@ -81,9 +82,11 @@ const main = async () => {
 
   const ticketValidationService = new TicketValidationService();
   const ticketPaymentService = new TicketPaymentService();
+  const seatReservationService = new SeatReservationService();
   const ticketService = new TicketService(
     ticketValidationService,
-    ticketPaymentService
+    ticketPaymentService,
+    seatReservationService
   );
 
   try {
