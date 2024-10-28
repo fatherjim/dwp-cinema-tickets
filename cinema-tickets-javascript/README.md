@@ -14,6 +14,7 @@ Project status: <span style="color:green">Active</span>
 >     -   [Requirements](#requirements)
 >     -   [Installation](#installation)
 >     -   [Usage](#usage)
+>     -   [Notes](#notes)
 
 ## Requirements
 
@@ -38,4 +39,17 @@ Ensure the machine is running NodeJS 20 or later, or simply run ```nvm use``` to
 
 Change directory to cinema-tickets-javascript.
 
-Start the server by running ```npm start```.
+Run the service with ```npm start```.
+
+## Notes
+
+No external dependencies, other than devDependencies, have been used.
+
+The business rules which could be translated into configs, such as the maximum number of tickets per purchase, are all centralised under ```config/```.
+This facilitates future changes, makes them easier to receive from elsewhere (such as .env files or a database), and eliminates magic numbers in the code.
+
+I've added a couple of simple extra business rules:
+1. Only one infant is allowed to set on an adult's lap. This wasn't explicitly stated but I've assumed as such.
+2. Only two children are allowed per adult.
+
+There are many, many more improvements that can be implemented to make this functionality simpler and easier to the user, but the important thing is that the business rules have all been satisfied.
